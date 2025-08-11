@@ -60,7 +60,7 @@ module.exports = defineConfig({
   viewportWidth   : 1200,  //Default width in pixels for the application under tests' viewport.
 
   //Timeouts
-  defaultCommandTimeout : 5000, //Time, in milliseconds, to wait until most DOM based commands are considered timed out.
+  defaultCommandTimeout : 15000, //Time, in milliseconds, to wait until most DOM based commands are considered timed out.
 
 
   //reports configuration
@@ -71,14 +71,14 @@ module.exports = defineConfig({
 
   //The number of times to retry a failing test. Can be configured to apply to cypress run or cypress open separately.
   //If you want to configure retry attempts on a specific test or suite, you can set this by using the test's/suite's configuration.
-  retries : {
-    // Configure retry attempts for `cypress run`
-    // Default is 0
-    runMode: 1,
-    // Configure retry attempts for `cypress open`
-    // Default is 0
-    openMode : 1
-  },
+  // retries : {
+  //   // Configure retry attempts for `cypress run`
+  //   // Default is 0
+  //   runMode: 1,
+  //   // Configure retry attempts for `cypress open`
+  //   // Default is 0
+  //   openMode : 1
+  // },
 
 
   //configuration options for e2e configuration object
@@ -98,7 +98,7 @@ module.exports = defineConfig({
 
       //Load the testing configuration and environment variables from separate JSON files.
       //we put the baseUrl and envionment specific config settings in settings/env.settings.json
-      const environmentName = config.env.environmentName || 'local';
+      const environmentName = config.env.environmentName || 'dev';
       const environmentFilename = `./settings/${environmentName}.settings.json`;
       console.log('loading %s', environmentFilename);
       const settings = require(environmentFilename);
@@ -137,8 +137,13 @@ module.exports = defineConfig({
     //Any key/value you set in your Cypress configuration under the env key will become an environment variable.
     //When your tests are running, you can use the Cypress.env function to access the values of your environment variables.
     env : {
-      URL : 'https://naveenautomationlabs.com/opencart/index.php'
-    }
-
+      URL : 'https://dems.dev.tl-service-dev.com/'
+    },
+    testIsolation: false,
+    chromeWebSecurity: false,
+    modifyObstructiveCode: false,
+    experimentalRunAllSpecs: true,
+    experimentalMemoryManagement: true,
+    watchForFileChanges: false
   },
 });

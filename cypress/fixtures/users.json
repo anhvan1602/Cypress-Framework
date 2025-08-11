@@ -1,10 +1,10 @@
 {
     "validUser": {
-      "email": "testuser@test.com",
-      "password": "test123"
+      "email": "vannta@vietbando.vn",
+      "password": "vbdTestng1!"
     },
     "invalidUser": {
-      "email": "invalid@test.com",
+      "email": "vannta@vietbando.vn",
       "password": "invalidpassword"
     }
 }

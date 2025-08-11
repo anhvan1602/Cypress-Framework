@@ -1,31 +1,37 @@
 import BasePage from "./BasePage";
 const routes = require('../config/routes');
-import { ENDPOINT_PREFIX } from "../config/constants";
+import { ENDPOINT_PREFIX } from "../config/CONSTANTS";
 
 class LoginPage extends BasePage{
 
-    get continueBtn() { return cy.get('a').contains('Continue'); }
-    get loginInput() { return cy.get('#input-email'); }
-    get passwordInput() { return cy.get('#input-password'); }
-    get loginBtn() { return cy.get("input[value='Login']"); }
-    get alertMsg() { return cy.get('#account-login .alert'); }
+    get loginInputDems() { return cy.get('input[name="userEmail"]'); }
+    get loginBtnDems() { return cy.get('button').contains('Sign in'); }
+    get loginInputAuth0() { return cy.get('input[id="username"]').clear(); }
+    get passwordInputAuth0() { return cy.get('input[id="password"]'); }
+    get loginBtnAuth0() { return cy.get('button').contains('Continue'); }
+    get alertMsg() { return cy.get('span'); }
+
+    //Logout
+    get userInfo() { return cy.get('div[title="User information"]'); }
+    get singoutBtn() { return cy.contains('Sign out'); }
 
     open() {
         //cy.visit('?route=account/login');   //Prefixes the baseUrl
-        //cy.visit(Cypress.env('URL'));   //loads the URL from env object in cypress.config.js
-        return super.open(ENDPOINT_PREFIX + routes.LOGIN_ENDPOINT)
-    }
-
-    openRegistrationPage() {
-        this.open();
-        this.continueBtn.click();
+        cy.visit(Cypress.env('URL'));   //loads the URL from env object in cypress.config.js
+        //return super.open(ENDPOINT_PREFIX + routes.LOGIN_ENDPOINT)
     }
 
     loginWithUI(email, password) {
         this.open();
-        this.loginInput.type(email)
-        this.passwordInput.type(password)
-        this.loginBtn.click()
+        this.loginInputDems.type(email)
+        this.loginBtnDems.click()
+        this.loginInputAuth0.type(email)
+        this.passwordInputAuth0.type(password)
+        this.loginBtnAuth0.click()
+    }
+    logoutwithUI() {
+        this.userInfo.click();
+        this.singoutBtn.click();
     }
 
 }

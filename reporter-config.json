@@ -6,7 +6,7 @@
 	"cypressMochawesomeReporterReporterOptions": {
         "reportDir": "cypress/results/cypress-mochawesome-reporter",
 		"charts": true,
-		"reportPageTitle": "OpenCart Test Report",
+		"reportPageTitle": "DEMS",
 		"embeddedScreenshots": true,
 		"inlineAssets": true,
 		"videoOnFailOnly": false

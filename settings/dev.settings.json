@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://dev.naveenautomationlabs.com/opencart/index.php",
+    "baseUrl": "https://dems.dev.tl-service-dev.com/",
     "env": {
         "environment": "development"
       },

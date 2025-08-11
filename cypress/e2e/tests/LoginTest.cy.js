@@ -22,7 +22,7 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
     })
 
     
-    it("should login successfully with valid credentials", {tags: '@smoke'}, function () {
+    it.only("should login successfully with valid credentials", {tags: '@smoke'}, function () {
 
         LoginPage
             .loginWithUI(this.users.validUser.email, this.users.validUser.password)

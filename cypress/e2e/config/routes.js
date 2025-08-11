@@ -1,4 +1,7 @@
 module.exports = {
+    MEDIATAGGED_ENDPOINT : 'media/tagged',
+    MEDIAINBOX_ENDPOINT : 'media/inbox',
+
     REGISTRATION_ENDPOINT : 'account/register',
     LOGIN_ENDPOINT : 'account/login',
     ACCOUNT_ENDPOINT : 'account/account',

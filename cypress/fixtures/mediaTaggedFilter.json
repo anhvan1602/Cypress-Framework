@@ -1,0 +1,20 @@
+{
+  "Filter": [
+    {
+      "label": "Recorded By",
+      "type": "select",
+      "options": [
+        { "value": "vbd+investigator@vietbando.vn" },
+        { "value": "vbd+officer@vietbando.vn" }
+      ]
+    },
+    {
+      "label": "Case Number",
+      "type": "input",
+      "options": [
+        { "value": "CN-12/333_3333" },
+        { "value": "CN-44/444_4444" }
+      ]
+    }
+  ]
+}
