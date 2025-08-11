@@ -2,7 +2,7 @@ import SharedElements from "../pages/SharedElements";
 import BasePage from "../pages/BasePage";
 import LoginPage from "../pages/LoginPage";
 
-describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () => {
+describe("Success and Fail login flow", { tags: ['@Login', '@regression', 'dems'] }, () => {
 
     let basePage;
 
