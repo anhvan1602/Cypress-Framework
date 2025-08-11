@@ -65,6 +65,7 @@ pipeline {
                 '@Search', 
                 '@Wishlist', 
                 '@Cart'
+                '@dems'
             ], 
             description: 'Choose the test tag to filter your test scripts'
         )
