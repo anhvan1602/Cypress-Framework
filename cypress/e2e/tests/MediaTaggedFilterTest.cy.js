@@ -1,7 +1,7 @@
 import BasePage from "../pages/BasePage";
 import { default as MediaTaggedFilterPage } from "../pages/MediaTaggedFilterPage";
 
-describe("Verify that the user can input and search using parameters", { tags: ['@Media', '@regression', '@dems'] }, () => {
+describe("Verify that the user can input and search using parameters", { tags: ['@Media', '@regression'] }, () => {
 
     let basePage;
 

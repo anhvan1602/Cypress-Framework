@@ -60,12 +60,7 @@ pipeline {
             choices: [
                 '@regression', 
                 '@smoke', 
-                '@Login', 
-                '@productData', 
-                '@Search', 
-                '@Wishlist', 
-                '@Cart',
-                '@dems'
+                '@Login'
             ], 
             description: 'Choose the test tag to filter your test scripts'
         )
