@@ -162,7 +162,7 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: 'Cypress Mochawesome Report',
                     reportTitles: 'Cypress Test Automation Framework',
-                    // useWrapperFileDirectly: true
+                    useWrapperFileDirectly: true
             ])
             
             //To avoid duplicate results, we comment this, and use it within script only
