@@ -94,7 +94,7 @@ pipeline {
         
        stage('Stage 2 - Installing dependencies') {
            steps {
-               bat 'npm i'
+               bat 'npm install'
                echo 'dependencies installed'
            }
        }
