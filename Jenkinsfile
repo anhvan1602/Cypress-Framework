@@ -110,27 +110,6 @@ pipeline {
            }
        }
        
-    //    stage('Stage 4 - Running cypress e2e Tests') {
-    //         //For recording tests on Cypress Cloud Dashboard, you need to set these environment variables
-    //         environment {
-    //             CYPRESS_RECORD_KEY = credentials('cypress-framework-record-key')
-    //             CYPRESS_PROJECT_ID = credentials('cypress-framework-project-id')
-    //         }
-
-    //         steps {
-    //             //bat "SET NO_COLOR=$NO_COLOR"    //You may want to do this if ASCII characters or colors are not properly formatted in your CI.
-    //             script {
-    //                 if (params.TEST_SPEC == "cypress/e2e/tests/*.cy.js") {
-    //                     echo "Running all test scripts with Browser: ${params.BROWSER}, TAG: ${params.TAG}, Environment: ${params.TEST_ENVIRONMENT}"
-    //                     bat "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
-    //                 } else {
-    //                     echo "Running script: ${params.TEST_SPEC} with Browser: ${params.BROWSER}, TAG: ${params.TAG}, Environment: ${params.TEST_ENVIRONMENT}"
-    //                     bat "npx cypress run --spec cypress/e2e/tests/${params.TEST_SPEC}.cy.js --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
-    //                 }
-    //             }
-                
-    //         }
-    //     }
         stage('Stage 4 - Running cypress e2e Tests') { 
             environment {
                 CYPRESS_RECORD_KEY = credentials('cypress-framework-record-key')
@@ -183,7 +162,7 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: 'Cypress Mochawesome Report',
                     reportTitles: 'Cypress Test Automation Framework',
-                    useWrapperFileDirectly: true
+                    // useWrapperFileDirectly: true
             ])
             
             //To avoid duplicate results, we comment this, and use it within script only
