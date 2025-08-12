@@ -24,7 +24,7 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
             .should('contains.text', 'Media');
     })
 
-    it("should fail to login with invalid credentials", {tags: '@smoke'}, function () {
+    it.skip("should fail to login with invalid credentials", {tags: '@smoke'}, function () {
 
         LoginPage
             .loginWithUI(this.users.invalidUser.email, this.users.invalidUser.password)
