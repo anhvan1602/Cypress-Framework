@@ -8,7 +8,9 @@
 		"charts": true,
 		"reportPageTitle": "DEMS",
 		"embeddedScreenshots": true,
-		"inlineAssets": true,
-		"videoOnFailOnly": false
+		"inlineAssets": false,
+		"videoOnFailOnly": false,
+		"html": true,
+    	"json": true
 	}
 }
