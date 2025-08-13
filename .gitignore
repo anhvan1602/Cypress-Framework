@@ -18,3 +18,5 @@ cypress/downloads
 cypress.env.json
 
 cypress_docker
+
+allure-results

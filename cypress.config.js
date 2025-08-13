@@ -141,7 +141,8 @@ module.exports = defineConfig({
     //Any key/value you set in your Cypress configuration under the env key will become an environment variable.
     //When your tests are running, you can use the Cypress.env function to access the values of your environment variables.
     env : {
-      URL : 'https://dems.dev.tl-service-dev.com/'
+      URL : 'https://dems.dev.tl-service-dev.com/',
+      allure: true
     },
     testIsolation: false,
     chromeWebSecurity: false,

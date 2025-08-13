@@ -11,7 +11,7 @@
 		"inlineAssets": true,
 		"videoOnFailOnly": false
 	},
-	"cypressAllurePluginReporterOptions": {
-		"resultsDir": "cypress/results/allure-results"
-	}
+	"@shelex/cypress-allure-pluginReporterOptions": {
+    "resultsDir": "cypress/results/allure-results"
+	}            
 }
