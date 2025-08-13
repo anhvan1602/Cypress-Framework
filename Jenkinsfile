@@ -120,8 +120,8 @@ pipeline {
 
             steps {
                 script {
-                    // def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
-                    // def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
+
+                    def commonOptions = "--reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
                     def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
                     def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
 
@@ -141,6 +141,12 @@ pipeline {
                             bat cmdSingle
                         }
                     }
+                    // Generate Allure report folder
+                    if (isUnix()) {
+                        sh 'npx allure generate cypress/results/allure-results --clean -o cypress/results/allure-report || true'
+                    } else {
+                        bat 'npx allure generate cypress\\results\\allure-results --clean -o cypress\\results\\allure-report || exit 0'
+                    }
                 }
             }
         }
@@ -152,6 +158,16 @@ pipeline {
                bat "npm run report:post"
            }
        }
+
+       stage('Stage 6 - Publishing Allure Report') {
+           steps {
+                    allure([
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'cypress/results/allure-results']]
+                    ])
+                }
+           }
+       
 
    }
    

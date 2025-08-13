@@ -10,5 +10,8 @@
 		"embeddedScreenshots": true,
 		"inlineAssets": true,
 		"videoOnFailOnly": false
+	},
+	"cypressAllurePluginReporterOptions": {
+		"resultsDir": "cypress/results/allure-results"
 	}
 }

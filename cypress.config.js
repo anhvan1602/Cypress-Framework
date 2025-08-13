@@ -34,6 +34,7 @@
  ***********************************************************************************/
 
 const { defineConfig } = require("cypress");
+const allureWriter = require('@shelex/cypress-allure-plugin/writer');
 
 module.exports = defineConfig({
 
@@ -129,6 +130,9 @@ module.exports = defineConfig({
 
       //cypress grep plugin config for tags
       require('@cypress/grep/src/plugin')(config);
+
+      // Allure
+      allureWriter(on, config);
 
       //It is very important to return the updated config object to the caller, so Cypress knows to use the changes configuration.
       return config;

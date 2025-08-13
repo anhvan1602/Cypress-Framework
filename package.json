@@ -4,11 +4,13 @@
   "description": "cypress test automation framework",
   "main": "index.js",
   "scripts": {
-    "results-junit:delete": "rm -rf cypress/results/junit/* || true",
+    "results-junit:delete": "rimraf cypress/results/junit/*",
     "results-junit:combine": "jrm cypress/results/junit/combined-report.xml \"cypress/results/junit/*.xml\"",
     "report:pre": "npm run results-junit:delete",
     "report:post": "npm run results-junit:combine",
-    "test:report": "npm run report:pre && npx cypress run && npm run report:post",
+    "report:allure": "allure generate cypress/results/allure-results --clean -o cypress/results/allure-report",
+    "open:allure": "allure open cypress/results/allure-report",
+    "test:report": "npm run report:pre && npx cypress run && npm run report:post && npm run report:allure",
     "test:all": "npx cypress run",
     "test:chrome": "npx cypress run --browser chrome",
     "test:firefox": "npx cypress run --browser firefox",
@@ -54,6 +56,7 @@
     "eslint-plugin-n": "^16.0.2",
     "eslint-plugin-promise": "^6.1.1",
     "junit-report-merger": "^6.0.2",
-    "mocha-junit-reporter": "^2.2.1"
+    "mocha-junit-reporter": "^2.2.1",
+    "@shelex/cypress-allure-plugin": "^2.40.0"
   }
 }
