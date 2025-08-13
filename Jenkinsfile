@@ -120,8 +120,11 @@ pipeline {
 
             steps {
                 script {
-                    def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
-                    def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
+                    // def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
+                    // def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG} ${params.RECORD_TESTS}"
+                    def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
+                    def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
+
 
                     if (params.TEST_SPEC == "cypress/e2e/tests/*.cy.js") {
                         echo "Running all test scripts with Browser: ${params.BROWSER}, TAG: ${params.TAG}, Environment: ${params.TEST_ENVIRONMENT}"
