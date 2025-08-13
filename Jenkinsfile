@@ -95,20 +95,33 @@ pipeline {
        }
        
        //This deletes any older xml results files present in the directory
-       stage('Stage 3 - Clearing old reports') {
-           steps {
-            //    bat "npm run report:pre"
-            script {
+    //    stage('Stage 3 - Clearing old reports') {
+    //        steps {
+    //         //    bat "npm run report:pre"
+    //         script {
+    //                 if (isUnix()) {
+    //                     sh 'npx rimraf cypress/results/junit/* || true'
+    //                     sh 'npx rimraf cypress/results/cypress-mochawesome-reporter/* || true'
+    //                 } else {
+    //                     bat 'npx rimraf cypress\\results\\junit\\*'
+    //                     bat 'npx rimraf cypress\\results\\cypress-mochawesome-reporter\\*'
+    //                 }
+    //             }
+    //        }
+    //    }
+
+        stage('Stage 3 - Clearing old reports') {
+            steps {
+                script {
                     if (isUnix()) {
-                        sh 'npx rimraf cypress/results/junit/* || true'
-                        sh 'npx rimraf cypress/results/cypress-mochawesome-reporter/* || true'
+                        sh 'npx cypress-clean-reports'
                     } else {
-                        bat 'npx rimraf cypress\\results\\junit\\*'
-                        bat 'npx rimraf cypress\\results\\cypress-mochawesome-reporter\\*'
+                        bat 'npx cypress-clean-reports'
                     }
                 }
-           }
-       }
+            }
+        }
+
        
         stage('Stage 4 - Running cypress e2e Tests') { 
             environment {
