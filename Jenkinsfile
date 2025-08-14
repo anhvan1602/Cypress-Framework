@@ -159,26 +159,36 @@ pipeline {
 
         
         //Mocha JUnit Reporter produces separate XML for each spec result, so we merge the test results into one XML file 
-       stage('Stage 5 - Merging JUnit reports') {
-           steps {
-               bat "npm run report:post"
-           }
-       }
+    //    stage('Stage 5 - Merging JUnit reports') {
+    //        steps {
+    //            bat "npm run report:post"
+    //        }
+    //    }
 
-       stage('Stage 6 - Publishing Allure Report') {
-           steps {
-                    allure([
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'cypress/results/allure-results']]
-                    ])
-                }
-           }
+    //    stage('Stage 6 - Publishing Allure Report') {
+    //        steps {
+    //                 allure([
+    //                     reportBuildPolicy: 'ALWAYS',
+    //                     results: [[path: 'cypress/results/allure-results']]
+    //                 ])
+    //             }
+    //        }
        
 
    }
    
    post {
         always {
+            // Merging JUnit Reports
+            echo 'Merging JUnit Reports'
+            bat "npm run report:post"
+
+            // Publishing Allure Report
+            echo 'Publishing Allure Report'
+            allure([
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'cypress/results/allure-results']]
+            ])
             //Publish the HTML report using the HTML Publisher plugin
             echo 'Publishing the Extent Report'
             publishHTML([
