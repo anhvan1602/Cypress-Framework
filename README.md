@@ -319,3 +319,50 @@ The Project is configured to run Cypress in Continuous Integration with multiple
 <img src="doc/jenkins-pipeline-config.PNG">
 
 <img src="doc/jenkins-slack-notification.PNG">
+
+
+## Sending Jenkins Notifications to Google Chat
+### 1. Create a Google Chat Webhook
+1. Open your Google Chat space.
+2. Go to **Manage webhooks** → **Add incoming webhook**.
+3. Name it (e.g., `Jenkins Notifier`) and copy the generated **Webhook URL**.
+
+---
+
+### 2. Install Jenkins Plugin
+- Navigate to **Manage Jenkins → Manage Plugins**.
+- Install **HTTP Request Plugin**.
+
+---
+
+### 3. Update Jenkins Pipeline
+Add the following snippet to your Jenkinsfile:
+
+```groovy
+import groovy.json.JsonOutput
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Running build...'
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                def message = [
+                    text: "✅ Jenkins job *${env.JOB_NAME}* build #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}\n🔗 ${env.BUILD_URL}"
+                ]
+                httpRequest(
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: JsonOutput.toJson(message),
+                    url: 'YOUR_GOOGLE_CHAT_WEBHOOK_URL'
+                )
+            }
+        }
+    }
+}
