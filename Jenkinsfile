@@ -210,6 +210,18 @@ pipeline {
                           message: "*${currentBuild.currentResult}*\n *Job*: ${env.JOB_NAME} , *Build*: ${env.BUILD_NUMBER}\n *Test Results*: \n\t Total: ${testResults.totalCount} Passed: ${testResults.passCount} Failed: ${testResults.failCount} Skipped: ${testResults.skipCount}\n *Test Run Configuration*:\n\t *Test Script(s)*: ${params.TEST_SPEC}\n\t *Browser*: ${params.BROWSER}  ${params.BROWSER_MODE}\n\t *Tags*: ${params.TAG}\n\t *Environment*: ${params.TEST_ENVIRONMENT}\n\t *Dashboard Recording*: ${params.RECORD_TESTS}\n *Test Report*: ${env.BUILD_URL}Cypress_20Mochawesome_20Report/ \n *More info*: ${env.BUILD_URL}"
      
             }
+
+            script {
+                def message = [
+                    text: "✅ Jenkins job *${env.JOB_NAME}* build #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}\n🔗 ${env.BUILD_URL}"
+                ]
+                httpRequest(
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: JsonOutput.toJson(message),
+                    url: 'https://chat.googleapis.com/v1/spaces/AAQAGFVqyuI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BpXk_1QcpVNkgPGs17Qkh1NNGBBY_t6N9FXQ1TjU2Zk'
+                )
+            }
         }
         
         success {
