@@ -38,11 +38,9 @@ pipeline {
         choice(
             name: 'TEST_ENVIRONMENT', 
             choices: [
-                'local',
                 'dev',
-                'qa',
-                'stage',
-                'prod',
+                'local',
+                'staging'
             ], 
             description: 'Specify the test environment. Default will be local.'
         )
@@ -59,9 +57,9 @@ pipeline {
         choice(
             name: 'TAG', 
             choices: [
-                '@regression', 
-                '@smoke', 
                 '@Login'
+                '@regression', 
+                '@smoke'
             ], 
             description: 'Choose the test tag to filter your test scripts'
         )
@@ -156,23 +154,6 @@ pipeline {
                 }
             }
         }
-
-        
-        //Mocha JUnit Reporter produces separate XML for each spec result, so we merge the test results into one XML file 
-    //    stage('Stage 5 - Merging JUnit reports') {
-    //        steps {
-    //            bat "npm run report:post"
-    //        }
-    //    }
-
-    //    stage('Stage 6 - Publishing Allure Report') {
-    //        steps {
-    //                 allure([
-    //                     reportBuildPolicy: 'ALWAYS',
-    //                     results: [[path: 'cypress/results/allure-results']]
-    //                 ])
-    //             }
-    //        }
        
 
    }

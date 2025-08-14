@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://prod.naveenautomationlabs.com/opencart/index.php",
+    "baseUrl": "",
     "env": {
         "environment": "production"
       },

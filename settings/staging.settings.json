@@ -1,7 +1,7 @@
 {
-    "baseUrl": "https://stage.naveenautomationlabs.com/opencart/index.php",
+    "baseUrl": "https://dems.staging.tl-service-dev.com/",
     "env": {
-        "environment": "stage"
+        "environment": "staging"
       },
       "execTimeout": 60000,
       "defaultCommandTimeout": 4000,

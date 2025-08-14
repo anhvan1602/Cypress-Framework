@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://qa.naveenautomationlabs.com/opencart/index.php",
+    "baseUrl": "",
     "env": {
         "environment": "qa"
       },
