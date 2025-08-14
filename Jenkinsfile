@@ -78,9 +78,9 @@ pipeline {
                 /* git ([
                         branch: 'main',
                         changelog: true,
-                        credentialsId: 'itkhanz',
+                        credentialsId: 'anhvan1602',
                         poll: false,
-                        url: 'https://github.com/itkhanz/Cypress-Framework'
+                        url: 'https://github.com/anhvan1602/Cypress-Framework'
                 ]) */
 
                 echo 'Code is checked out'

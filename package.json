@@ -31,17 +31,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itkhanz/Cypress-Framework.git"
+    "url": "git+https://github.com/anhvan1602/Cypress-Framework.git"
   },
   "keywords": [
     "cypress"
   ],
-  "author": "itkhanz",
+  "author": "anhvan1602",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/itkhanz/Cypress-Framework/issues"
+    "url": "https://github.com/anhvan1602/Cypress-Framework/issues"
   },
-  "homepage": "https://github.com/itkhanz/Cypress-Framework#readme",
+  "homepage": "https://github.com/anhvan1602/Cypress-Framework#readme",
   "devDependencies": {
     "@cypress/grep": "^3.1.5",
     "@faker-js/faker": "^8.0.2",
