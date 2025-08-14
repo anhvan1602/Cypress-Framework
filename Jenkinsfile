@@ -237,6 +237,7 @@ pipeline {
                     url: 'https://chat.googleapis.com/v1/spaces/AAQAGFVqyuI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BpXk_1QcpVNkgPGs17Qkh1NNGBBY_t6N9FXQ1TjU2Zk'
                 )
             }
+        }
         
         success {
             echo 'Build Successful'
