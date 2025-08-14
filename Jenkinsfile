@@ -205,25 +205,29 @@ pipeline {
                     'UNKNOWN'   : '#CCCCCC'    // Light Gray
                 ]
 
-                // Build the message text (Google Chat supports basic markdown)
-                def chatMessage = """*${currentBuild.currentResult}*
-                                        *Job*: ${env.JOB_NAME}
-                                        *Build*: ${env.BUILD_NUMBER}
-                                        *Test Results*:
-                                        \tTotal: ${testResults.totalCount}  
-                                        \tPassed: ${testResults.passCount}  
-                                        \tFailed: ${testResults.failCount}  
-                                        \tSkipped: ${testResults.skipCount}
-                                        *Test Run Configuration*:
-                                        \t*Test Script(s)*: ${params.TEST_SPEC}
-                                        \t*Browser*: ${params.BROWSER} ${params.BROWSER_MODE}
-                                        \t*Tags*: ${params.TAG}
-                                        \t*Environment*: ${params.TEST_ENVIRONMENT}
-                                        \t*Dashboard Recording*: ${params.RECORD_TESTS}
+                // Build the message text
+                def chatMessage = """✅ **Automation Test Run Completed**
 
-                                        *Test Report*: ${env.BUILD_URL}allure/  
-                                        *More info*: ${env.BUILD_URL}
-                                    """
+            *Result*: *${currentBuild.currentResult}*
+            *Job*: ${env.JOB_NAME}
+            *Build*: ${env.BUILD_NUMBER}
+
+            *Test Results*:
+            \tTotal: ${testResults.totalCount}  
+            \tPassed: ${testResults.passCount}  
+            \tFailed: ${testResults.failCount}  
+            \tSkipped: ${testResults.skipCount}
+
+            *Test Run Configuration*:
+            \t*Test Script(s)*: ${params.TEST_SPEC}
+            \t*Browser*: ${params.BROWSER} ${params.BROWSER_MODE}
+            \t*Tags*: ${params.TAG}
+            \t*Environment*: ${params.TEST_ENVIRONMENT}
+            \t*Dashboard Recording*: ${params.RECORD_TESTS}
+
+            *Test Report*: ${env.BUILD_URL}allure/ 
+            *More info*: ${env.BUILD_URL}
+            """
 
                 // Send to Google Chat
                 httpRequest(
@@ -233,7 +237,6 @@ pipeline {
                     url: 'https://chat.googleapis.com/v1/spaces/AAQAGFVqyuI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BpXk_1QcpVNkgPGs17Qkh1NNGBBY_t6N9FXQ1TjU2Zk'
                 )
             }
-        }
         
         success {
             echo 'Build Successful'
