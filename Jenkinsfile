@@ -65,6 +65,11 @@ pipeline {
             ], 
             description: 'Choose the test tag to filter your test scripts'
         )
+        booleanParam(
+            name: 'SEND_GCHAT_MESSAGE',
+            defaultValue: f,
+            description: 'Send Google Chat notification after run'
+        )
     }
 
 
@@ -191,51 +196,56 @@ pipeline {
             //junit 'cypress/results/junit/combined-report.xml'
 
             script {
-                // Get the JUnit test results
-                echo 'Publishing JUnit XML Results'
-                def testResults = junit testResults: 'cypress/results/junit/combined-report.xml'
-                
-                // Mapping build status to colors
-                def COLOR_MAP = [
-                    'SUCCESS'   : '#4CAF50',   // Green
-                    'FAILURE'   : '#F44336',   // Red
-                    'UNSTABLE'  : '#FFC107',   // Yellow
-                    'ABORTED'   : '#9E9E9E',   // Grey
-                    'NOT_BUILT' : '#2196F3',   // Blue
-                    'UNKNOWN'   : '#CCCCCC'    // Light Gray
-                ]
+                if (params.SEND_GCHAT_MESSAGE) {
+                        // Get the JUnit test results
+                        echo 'Publishing JUnit XML Results'
+                        def testResults = junit testResults: 'cypress/results/junit/combined-report.xml'
+                        
+                        // Mapping build status to colors
+                        def COLOR_MAP = [
+                            'SUCCESS'   : '#4CAF50',   // Green
+                            'FAILURE'   : '#F44336',   // Red
+                            'UNSTABLE'  : '#FFC107',   // Yellow
+                            'ABORTED'   : '#9E9E9E',   // Grey
+                            'NOT_BUILT' : '#2196F3',   // Blue
+                            'UNKNOWN'   : '#CCCCCC'    // Light Gray
+                        ]
 
-                // Build the message text
-                def chatMessage = """✅ **Automation Test Run Completed**
+                        // Build the message text
+                        def chatMessage = """✅ **Automation Test Run Completed**
 
-            *Result*: *${currentBuild.currentResult}*
-            *Job*: ${env.JOB_NAME}
-            *Build*: ${env.BUILD_NUMBER}
+                    *Result*: *${currentBuild.currentResult}*
+                    *Job*: ${env.JOB_NAME}
+                    *Build*: ${env.BUILD_NUMBER}
 
-            *Test Results*:
-            \tTotal: ${testResults.totalCount}  
-            \tPassed: ${testResults.passCount}  
-            \tFailed: ${testResults.failCount}  
-            \tSkipped: ${testResults.skipCount}
+                    *Test Results*:
+                    \tTotal: ${testResults.totalCount}  
+                    \tPassed: ${testResults.passCount}  
+                    \tFailed: ${testResults.failCount}  
+                    \tSkipped: ${testResults.skipCount}
 
-            *Test Run Configuration*:
-            \t*Test Script(s)*: ${params.TEST_SPEC}
-            \t*Browser*: ${params.BROWSER} ${params.BROWSER_MODE}
-            \t*Tags*: ${params.TAG}
-            \t*Environment*: ${params.TEST_ENVIRONMENT}
-            \t*Dashboard Recording*: ${params.RECORD_TESTS}
+                    *Test Run Configuration*:
+                    \t*Test Script(s)*: ${params.TEST_SPEC}
+                    \t*Browser*: ${params.BROWSER} ${params.BROWSER_MODE}
+                    \t*Tags*: ${params.TAG}
+                    \t*Environment*: ${params.TEST_ENVIRONMENT}
+                    \t*Dashboard Recording*: ${params.RECORD_TESTS}
 
-            *Test Report*: ${env.BUILD_URL}allure/ 
-            *More info*: ${env.BUILD_URL}
-            """
+                    *Test Report*: ${env.BUILD_URL}allure/ 
+                    *More info*: ${env.BUILD_URL}
+                    """
 
-                // Send to Google Chat
-                httpRequest(
-                    httpMode: 'POST',
-                    contentType: 'APPLICATION_JSON',
-                    requestBody: JsonOutput.toJson([text: chatMessage]),
-                    url: 'https://chat.googleapis.com/v1/spaces/AAQAGFVqyuI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BpXk_1QcpVNkgPGs17Qkh1NNGBBY_t6N9FXQ1TjU2Zk'
-                )
+                    // Send to Google Chat
+                    httpRequest(
+                        httpMode: 'POST',
+                        contentType: 'APPLICATION_JSON',
+                        requestBody: JsonOutput.toJson([text: chatMessage]),
+                        url: 'https://chat.googleapis.com/v1/spaces/AAQAGFVqyuI/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=BpXk_1QcpVNkgPGs17Qkh1NNGBBY_t6N9FXQ1TjU2Zk'
+                    )
+                }
+                else {
+                    echo 'Google Chat notification skipped.'
+                }
             }
         }
         
