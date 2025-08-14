@@ -67,7 +67,7 @@ pipeline {
         )
         booleanParam(
             name: 'SEND_GCHAT_MESSAGE',
-            defaultValue: f,
+            defaultValue: false,
             description: 'Send Google Chat notification after run'
         )
     }
