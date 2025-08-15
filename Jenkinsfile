@@ -57,7 +57,7 @@ pipeline {
         choice(
             name: 'TAG', 
             choices: [
-                '@Login'
+                '@Login',
                 '@regression', 
                 '@smoke'
             ], 
