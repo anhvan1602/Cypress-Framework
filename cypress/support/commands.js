@@ -26,19 +26,6 @@
 
 import LoginPage from "../e2e/pages/LoginPage"
 
-// Cypress.Commands.add('login', () => {
-//   cy.fixture('users.json').then((users) => {
-//     const email = users.validUser.email;
-//     const password = users.validUser.password;
-
-//     cy.session([email, password], () => {
-//       LoginPage.loginWithUI(email, password);
-      
-//       cy.url().should('include', '/media/inbox');
-//     });
-//   });
-// });
-
 Cypress.Commands.add('login', () => {
   cy.fixture('users.json').then((users) => {
     const email = users.validUser.email;
@@ -48,4 +35,28 @@ Cypress.Commands.add('login', () => {
     cy.url().should('include', '/media/inbox');
   });
 });
+
+
+import '@shelex/cypress-allure-plugin';
+
+const originalStep = Cypress.Allure.reporterRuntime?.step;
+
+if (originalStep) {
+  Cypress.Allure.reporterRuntime.step = function (name, ...args) {
+    // Gọi step gốc để vẫn log vào Allure
+    const result = originalStep.call(this, name, ...args);
+
+    // Chỉ screenshot nếu step có chứa [CAPTURE]
+    if (/\[CAPTURE\]/i.test(name)) {
+      const screenshotName = name.replace(/[/\\?%*:|"<>]/g, '-');
+
+      cy.screenshot(screenshotName, { capture: 'viewport' }).then(() => {
+        const filePath = `cypress/screenshots/${Cypress.spec.name}/${screenshotName}.png`;
+        cy.allure().fileAttachment(`${screenshotName}.png`, filePath, 'image/png');
+      });
+    }
+
+    return result;
+  };
+}
 

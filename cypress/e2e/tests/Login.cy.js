@@ -17,11 +17,11 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
         cy.allure().description("Verify that user can login successfully with valid email & password");
         cy.allure().severity("critical");
 
-        cy.allure().step("Step 1: Login with valid credentials", () => {
+        cy.allure().step("[CAPTURE] Step 1: Login with valid credentials", () => {
             LoginPage.loginWithUI(this.users.validUser.email, this.users.validUser.password);
         });
 
-        cy.allure().step("Step 2: Verify landing page contains heading 'Media'", () => {
+        cy.allure().step("Step 2: Verify landing page contains heading 'Media' [CAPTURE]", () => {
             SharedElements.spanHeading.should('contains.text', 'Media');
         });
     });
