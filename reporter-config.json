@@ -3,14 +3,6 @@
 	"mochaJunitReporterReporterOptions": {
 		"mochaFile": "cypress/results/junit/results-[hash].xml"
 	},
-	"cypressMochawesomeReporterReporterOptions": {
-        "reportDir": "cypress/results/cypress-mochawesome-reporter",
-		"charts": true,
-		"reportPageTitle": "DEMS",
-		"embeddedScreenshots": true,
-		"inlineAssets": true,
-		"videoOnFailOnly": false
-	},
 	"@shelex/cypress-allure-pluginReporterOptions": {
     "resultsDir": "cypress/results/allure-results"
 	}            

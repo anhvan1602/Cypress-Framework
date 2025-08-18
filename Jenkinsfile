@@ -105,10 +105,10 @@ pipeline {
             script {
                     if (isUnix()) {
                         sh 'npx rimraf cypress/results/junit/* || true'
-                        sh 'npx rimraf cypress/results/cypress-mochawesome-reporter/* || true'
+                        //sh 'npx rimraf cypress/results/cypress-mochawesome-reporter/* || true'
                     } else {
                         bat 'npx rimraf cypress\\results\\junit\\*'
-                        bat 'npx rimraf cypress\\results\\cypress-mochawesome-reporter\\*'
+                        //bat 'npx rimraf cypress\\results\\cypress-mochawesome-reporter\\*'
                     }
                 }
            }
@@ -171,17 +171,17 @@ pipeline {
                 results: [[path: 'cypress/results/allure-results']]
             ])
             //Publish the HTML report using the HTML Publisher plugin
-            echo 'Publishing the Extent Report'
-            publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: 'cypress/results/cypress-mochawesome-reporter',
-                    reportFiles: 'index.html',
-                    reportName: 'Cypress Mochawesome Report',
-                    reportTitles: 'Cypress Test Automation Framework',
-                    useWrapperFileDirectly: false
-            ])
+            // echo 'Publishing the Extent Report'
+            // publishHTML([
+            //         allowMissing: false,
+            //         alwaysLinkToLastBuild: false,
+            //         keepAll: true,
+            //         reportDir: 'cypress/results/cypress-mochawesome-reporter',
+            //         reportFiles: 'index.html',
+            //         reportName: 'Cypress Mochawesome Report',
+            //         reportTitles: 'Cypress Test Automation Framework',
+            //         useWrapperFileDirectly: false
+            // ])
             
             //To avoid duplicate results, we comment this, and use it within script only
             //junit 'cypress/results/junit/combined-report.xml'

@@ -126,7 +126,7 @@ module.exports = defineConfig({
       }
 
       //cypress-mochawesome-reporter
-      require('cypress-mochawesome-reporter/plugin')(on);  
+      //require('cypress-mochawesome-reporter/plugin')(on);  
 
       //cypress grep plugin config for tags
       require('@cypress/grep/src/plugin')(config);

@@ -19,7 +19,7 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import 'cypress-mochawesome-reporter/register';
+//import 'cypress-mochawesome-reporter/register';
 
 const registerCypressGrep = require('@cypress/grep')
 registerCypressGrep()
@@ -34,5 +34,5 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 })
 
 // Import Allure plugin
-import 'cypress-mochawesome-reporter/register';
+//import 'cypress-mochawesome-reporter/register';
 import '@shelex/cypress-allure-plugin';
