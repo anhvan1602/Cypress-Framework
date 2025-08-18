@@ -19,10 +19,12 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
 
         cy.allure().step("[CAPTURE] Step 1: Login with valid credentials", () => {
             LoginPage.loginWithUI(this.users.validUser.email, this.users.validUser.password);
+            cy.screenshot('Login_Success')
         });
 
         cy.allure().step("Step 2: Verify landing page contains heading 'Media' [CAPTURE]", () => {
             SharedElements.spanHeading.should('contains.text', 'Media');
+            cy.screenshot('Login_Success')
         });
     });
 

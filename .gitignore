@@ -20,3 +20,4 @@ cypress.env.json
 cypress_docker
 
 allure-results
+allure-report
