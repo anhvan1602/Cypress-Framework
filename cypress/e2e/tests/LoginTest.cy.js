@@ -10,6 +10,7 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
     });
 
     beforeEach(() => {
+        cy.clearAllCookies();
         cy.fixture('users.json').as('users');
     });
 

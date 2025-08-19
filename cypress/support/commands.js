@@ -36,12 +36,24 @@ Cypress.Commands.add('login', () => {
   });
 });
 
+// Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
+//     cy.screenshot(name, { capture: "runner" }).then(() => {
+//         const screenshotPath = `cypress/screenshots/${Cypress.spec.name}/${name}.png`;
+//         cy.readFile(screenshotPath, 'base64').then((imgData) => {
+//             cy.allure().fileAttachment(name, imgData, "image/png");
+//         });
+//     });
+// });
+
 Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
-    cy.screenshot(name, { capture: "runner" }).then(() => {
-        const screenshotPath = `cypress/screenshots/${Cypress.spec.name}/${name}.png`;
-        cy.readFile(screenshotPath, 'base64').then((imgData) => {
+    const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
+    cy.screenshot(safeName, { capture: "runner" }).then(() => {
+        const screenshotPath = `cypress/screenshots/${safeName}.png`;
+
+        cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
             cy.allure().fileAttachment(name, imgData, "image/png");
         });
     });
 });
+
 
