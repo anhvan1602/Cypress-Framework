@@ -45,16 +45,29 @@ Cypress.Commands.add('login', () => {
 //     });
 // });
 
+// cypress/support/commands.js
+// cypress/support/commands.js
 Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
   const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
-  const screenshotPath = `cypress/screenshots/${safeName}.png`;
+  const specPath = Cypress.spec.relative.replace(/\\/g, "/");
 
-  cy.screenshot(safeName, { capture: "runner" }).then(() => {
+  // Create timestamp: YYYYMMDD-HHmmss
+  const now = new Date();
+  const timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}${String(now.getMinutes()).padStart(2, "0")}${String(now.getSeconds()).padStart(2, "0")}`;
+
+  const fileName = `${safeName}_${timestamp}.png`;
+  const screenshotPath = `cypress/screenshots/${specPath}/${fileName}`;
+
+  cy.screenshot(`${specPath}/${safeName}_${timestamp}`).then(() => {
     cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
-      cy.allure().fileAttachment(name, imgData, "image/png");
+      cy.allure().fileAttachment(fileName, imgData, "image/png");
     });
   });
 });
+
+
+
+
 
 
 
