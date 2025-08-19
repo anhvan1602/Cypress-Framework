@@ -99,20 +99,21 @@ pipeline {
        }
        
        //This deletes any older xml results files present in the directory
-       stage('Stage 3 - Clearing old reports') {
-           steps {
-            //    bat "npm run report:pre"
-            script {
+       // This deletes any older xml results files present in the directory
+        stage('Stage 3 - Clearing old reports') {
+            steps {
+                script {
                     if (isUnix()) {
                         sh 'npx rimraf cypress/results/junit/* || true'
-                        //sh 'npx rimraf cypress/results/cypress-mochawesome-reporter/* || true'
+                        sh 'npx rimraf allure-results/* || true'
                     } else {
                         bat 'npx rimraf cypress\\results\\junit\\*'
-                        //bat 'npx rimraf cypress\\results\\cypress-mochawesome-reporter\\*'
+                        bat 'npx rimraf allure-results\\*'
                     }
                 }
-           }
-       }
+            }
+        }
+
 
 
        
