@@ -16,9 +16,10 @@ class LoginPage extends BasePage{
     get singoutBtn() { return cy.contains('Sign out'); }
 
     open() {
-        //cy.visit('?route=account/login');   //Prefixes the baseUrl
-        cy.visit(Cypress.env('URL'));   //loads the URL from env object in cypress.config.js
+        //cy.visit('?route=login?redirect=/');   //Prefixes the baseUrl
+        //cy.visit(Cypress.env('URL'));   //loads the URL from env object in cypress.config.js
         //return super.open(ENDPOINT_PREFIX + routes.LOGIN_ENDPOINT)
+        cy.visit('')
     }
 
     loginWithUI(email, password) {

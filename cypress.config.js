@@ -144,9 +144,9 @@ module.exports = defineConfig({
       URL : 'https://dems.dev.tl-service-dev.com/',
       allure: true
     },
-    testIsolation: false,
+    testIsolation: true,
     chromeWebSecurity: false,
-    modifyObstructiveCode: false,
+    modifyObstructiveCode: true,
     experimentalRunAllSpecs: true,
     experimentalMemoryManagement: true,
     watchForFileChanges: false

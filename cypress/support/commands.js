@@ -35,3 +35,13 @@ Cypress.Commands.add('login', () => {
     cy.url().should('include', '/media/inbox');
   });
 });
+
+Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
+    cy.screenshot(name, { capture: "runner" }).then(() => {
+        const screenshotPath = `cypress/screenshots/${Cypress.spec.name}/${name}.png`;
+        cy.readFile(screenshotPath, 'base64').then((imgData) => {
+            cy.allure().fileAttachment(name, imgData, "image/png");
+        });
+    });
+});
+
