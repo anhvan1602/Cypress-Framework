@@ -30,8 +30,8 @@ describe("Verify that the user can input and search using parameters", { tags: [
                         MediaTaggedFilterPage.applyFilter();
                         MediaTaggedFilterPage.verifyResultGridHas(option.value);
                         MediaTaggedFilterPage.resetFilter();
-                        cy.allureScreenshot(`RecordedBy-${option.value}`);
                     });
+                    cy.allureScreenshot(`screenshot-check`);
                 });
             }
         });
@@ -52,8 +52,8 @@ describe("Verify that the user can input and search using parameters", { tags: [
                         MediaTaggedFilterPage.verifyResultTagDetailHas(option.value);
                         MediaTaggedFilterPage.clickButtonBack();
                         MediaTaggedFilterPage.resetFilter();
-                        cy.allureScreenshot(`CaseNumber-${option.value}`);
                     });
+                    cy.allureScreenshot(`screenshot-check`);
                 });
             }
         });
