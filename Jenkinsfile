@@ -30,10 +30,10 @@ pipeline {
             defaultValue: 'cypress/e2e/tests/*.cy.js', 
             description: 'Enter the name of the test spec without file extension e.g. LoginTest. Default value will run all the test specs present inside cypress/e2e/tests/ directory.'
         )
-        string(
-            name: 'RECORD_TESTS', 
-            defaultValue: '--record false', 
-            description: 'Within CI, you can pass --record argument to record the test runs to later view on cypress dashboard. Remove the false to record the tests.'
+        choice(
+            name: 'ALLURE_VIDEO_ON_PASS',
+            choices: ['true', 'false'],
+            description: 'Attach videos for passed tests in Allure report (true/false)'
         )
         choice(
             name: 'TEST_ENVIRONMENT', 
@@ -67,6 +67,11 @@ pipeline {
             name: 'SEND_GCHAT_MESSAGE',
             defaultValue: false,
             description: 'Send Google Chat notification after run'
+        )
+        choice(
+            name: 'ALLURE_VIDEO_ON_PASS', 
+            choices: ['true', 'false'], 
+            description: 'Attach videos for passed tests in Allure report'
         )
     }
 
@@ -126,9 +131,10 @@ pipeline {
             steps {
                 script {
 
+                    def allureVideoFlag = "allureAddVideoOnPass=${params.ALLURE_VIDEO_ON_PASS}"
                     def commonOptions = "--reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
-                    def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
-                    def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true ${params.RECORD_TESTS}"
+                    def cmdAll = "npx cypress run --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true,${allureVideoFlag}"
+                    def cmdSingle = "npx cypress run --spec \"cypress/e2e/tests/${params.TEST_SPEC}.cy.js\" --${params.BROWSER_MODE} --browser ${params.BROWSER} --env environmentName=${params.TEST_ENVIRONMENT},grepTags=${params.TAG},grepFilterSpecs=true,${allureVideoFlag}"
 
 
                     if (params.TEST_SPEC == "cypress/e2e/tests/*.cy.js") {

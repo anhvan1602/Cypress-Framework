@@ -14,6 +14,7 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
         cy.fixture('users.json').as('users');
     });
 
+
     it("should login successfully with valid credentials", { tags: '@smoke' }, function () {
         cy.allure().description("Verify that user can login successfully with valid email & password");
         cy.allure().severity("critical");
@@ -23,7 +24,6 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
 
         cy.allure().step("Step 2: Verify landing page contains heading 'Media'");
         SharedElements.spanHeading.should('contain.text', 'Media');
-        cy.allureScreenshot("screenshot-check");
     });
 
     it("should fail to login with invalid credentials", { tags: '@smoke' }, function () {
@@ -35,6 +35,5 @@ describe("Success and Fail login flow", { tags: ['@Login', '@regression'] }, () 
 
         cy.allure().step("Step 2: Verify alert message is displayed");
         LoginPage.alertMsg.should('contain.text', 'Wrong email or password');
-        cy.allureScreenshot("screenshot-check");
     });
 });

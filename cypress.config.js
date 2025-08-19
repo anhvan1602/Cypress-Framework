@@ -149,6 +149,7 @@ module.exports = defineConfig({
     modifyObstructiveCode: true,
     experimentalRunAllSpecs: true,
     experimentalMemoryManagement: true,
-    watchForFileChanges: false
+    watchForFileChanges: false,
+    allureAddVideoOnPass: true
   },
 });

@@ -35,9 +35,6 @@ describe("Verify that the user can input and search using parameters", { tags: [
             MediaTaggedFilterPage.selectFilterValue('Recorded By', option.value);
             MediaTaggedFilterPage.applyFilter();
             MediaTaggedFilterPage.verifyResultGridHas(option.value);
-
-            cy.allureScreenshot(`RecordedBy_${option.value}`);
-
             MediaTaggedFilterPage.resetFilter();
         });
     });
@@ -52,9 +49,6 @@ describe("Verify that the user can input and search using parameters", { tags: [
             MediaTaggedFilterPage.applyFilter();
             MediaTaggedFilterPage.clickDetailView();
             MediaTaggedFilterPage.verifyResultTagDetailHas(option.value);
-
-            cy.allureScreenshot(`CaseNumber_${option.value}`);
-
             MediaTaggedFilterPage.clickButtonBack();
             MediaTaggedFilterPage.resetFilter();
         });
