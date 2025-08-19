@@ -46,26 +46,26 @@ Cypress.Commands.add('login', () => {
 // });
 
 // cypress/support/commands.js
-// cypress/support/commands.js
 Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
   const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
-  const specPath = Cypress.spec.relative.replace(/\\/g, "/");
 
-  // Timestamp HHmmss
   const now = new Date();
-  const timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}${String(now.getMinutes()).padStart(2, "0")}${String(now.getSeconds()).padStart(2, "0")}`;
+  const timestamp = now.toISOString().replace(/[-:T.Z]/g, "").slice(0, 14); 
 
   const fileName = `${safeName}_${timestamp}.png`;
-
   const screenshotsFolder = Cypress.config("screenshotsFolder");
-  const screenshotPath = `${screenshotsFolder}/${specPath}/${fileName}`;
+  const specName = Cypress.spec.name.replace(/\\/g, "/");
 
-  cy.screenshot(`${specPath}/${safeName}_${timestamp}`).then(() => {
+  const screenshotPath = `${screenshotsFolder}/${specName}/${fileName}`;
+
+  cy.screenshot(`${specName}/${safeName}_${timestamp}`).then(() => {
     cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
       cy.allure().fileAttachment(fileName, imgData, "image/png");
     });
   });
 });
+
+
 
 
 
