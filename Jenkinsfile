@@ -68,11 +68,6 @@ pipeline {
             defaultValue: false,
             description: 'Send Google Chat notification after run'
         )
-        choice(
-            name: 'ALLURE_VIDEO_ON_PASS', 
-            choices: ['true', 'false'], 
-            description: 'Attach videos for passed tests in Allure report'
-        )
     }
 
 
