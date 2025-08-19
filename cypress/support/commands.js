@@ -46,14 +46,15 @@ Cypress.Commands.add('login', () => {
 // });
 
 Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
-    const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
-    cy.screenshot(safeName, { capture: "runner" }).then(() => {
-        const screenshotPath = `cypress/screenshots/${safeName}.png`;
+  const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
+  const screenshotPath = `cypress/screenshots/${safeName}.png`;
 
-        cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
-            cy.allure().fileAttachment(name, imgData, "image/png");
-        });
+  cy.screenshot(safeName, { capture: "runner" }).then(() => {
+    cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
+      cy.allure().fileAttachment(name, imgData, "image/png");
     });
+  });
 });
+
 
 
