@@ -51,12 +51,14 @@ Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
   const safeName = name.replace(/[^a-zA-Z0-9-_]/g, "_");
   const specPath = Cypress.spec.relative.replace(/\\/g, "/");
 
-  // Create timestamp: YYYYMMDD-HHmmss
+  // Timestamp HHmmss
   const now = new Date();
   const timestamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${String(now.getHours()).padStart(2, "0")}${String(now.getMinutes()).padStart(2, "0")}${String(now.getSeconds()).padStart(2, "0")}`;
 
   const fileName = `${safeName}_${timestamp}.png`;
-  const screenshotPath = `cypress/screenshots/${specPath}/${fileName}`;
+
+  const screenshotsFolder = Cypress.config("screenshotsFolder");
+  const screenshotPath = `${screenshotsFolder}/${specPath}/${fileName}`;
 
   cy.screenshot(`${specPath}/${safeName}_${timestamp}`).then(() => {
     cy.readFile(screenshotPath, "base64", { timeout: 20000 }).then((imgData) => {
@@ -64,6 +66,7 @@ Cypress.Commands.add("allureScreenshot", (name = "screenshot-result") => {
     });
   });
 });
+
 
 
 
