@@ -36,6 +36,28 @@ class MediaTaggedFilterPage extends BasePage {
       });
   }
 
+  selectCheckboxValue(labelText, value) {
+    cy.contains("span[class*='sub']", labelText)
+      .parent()
+      .within(() => {
+        cy.contains('span', value)
+          .click();
+      });
+  }
+
+  enterDateInput(key, value) {
+  cy.contains('.form-label', key)
+    .closest('.form-control-column')
+    .within(() => {
+      cy.get('.calendar').click();  
+      cy.get('input')
+      .should('be.visible')
+      .clear()
+      .type(value)
+      .type('{enter}');
+    });
+}
+
   clickDetailView() {
     this.detailViewLink.click();
   }
@@ -58,6 +80,17 @@ class MediaTaggedFilterPage extends BasePage {
 
   verifyResultTagDetailHas(value) {
     this.resultTagDetail.should('contain', value);
+  }
+  verifyGridRecordedTimeBetween(from, to) {
+    const fromDate = new Date(from);
+    const toDate   = new Date(to);
+
+    cy.get("div[class*='large-view']").each($row => {
+      const recordedTimeText = $row.find("a[class*='media-item-title']").text().trim();
+      const recordedTime = new Date(recordedTimeText);
+
+      expect(recordedTime >= fromDate && recordedTime <= toDate).to.be.true;
+    });
   }
 }
 
