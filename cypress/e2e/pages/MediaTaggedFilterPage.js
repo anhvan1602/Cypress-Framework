@@ -46,17 +46,15 @@ class MediaTaggedFilterPage extends BasePage {
   }
 
   enterDateInput(key, value) {
-  cy.contains('.form-label', key)
-    .closest('.form-control-column')
-    .within(() => {
-      cy.get('.calendar').click();  
-      cy.get('input')
-      .should('be.visible')
-      .clear()
-      .type(value)
-      .type('{enter}');
-    });
-}
+    cy.contains('.form-label', key)
+      .closest('.form-control-column')
+      .within(() => {
+        cy.get('.calendar').click();
+        cy.get('input', { timeout: 5000 })
+          .should('be.visible')
+          .type(value).type('{enter}');
+      });
+  }
 
   clickDetailView() {
     this.detailViewLink.click();
@@ -87,9 +85,18 @@ class MediaTaggedFilterPage extends BasePage {
 
     cy.get("div[class*='large-view']").each($row => {
       const recordedTimeText = $row.find("a[class*='media-item-title']").text().trim();
-      const recordedTime = new Date(recordedTimeText);
+      // example: "03/09/2025 4:59:00 PM"
 
-      expect(recordedTime >= fromDate && recordedTime <= toDate).to.be.true;
+      const recordedDate = new Date(recordedTimeText);
+
+      // normalize to 0h00
+      fromDate.setHours(0,0,0,0);
+      toDate.setHours(0,0,0,0);
+      // recordedDate.setHours(0,0,0,0);
+
+      expect(recordedDate >= fromDate && recordedDate <= toDate,
+      `recordedDate ${recordedDate.toDateString()} should be between ${fromDate.toDateString()} and ${toDate.toDateString()}`
+      ).to.be.true;
     });
   }
 }
