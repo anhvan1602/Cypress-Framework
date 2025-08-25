@@ -87,7 +87,9 @@ describe("Verify that the user can input and search using parameters", { tags: [
             MediaTaggedFilterPage.applyFilter();
             // Map Yes -> true, No -> false
             const expectedValue = option.value === "Yes" ? true : false;
-            MediaTaggedFilterPage.verifyResultGridHas(`Evidentiary: ${expectedValue}`);
+            MediaTaggedFilterPage.clickDetailView();
+            MediaTaggedFilterPage.verifyResultTagDetailHas(`Evidentiary: ${expectedValue}`);
+            MediaTaggedFilterPage.clickButtonBack();
             MediaTaggedFilterPage.resetFilter();
         });
     });

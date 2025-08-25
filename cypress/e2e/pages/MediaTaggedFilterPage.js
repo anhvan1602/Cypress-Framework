@@ -73,7 +73,9 @@ class MediaTaggedFilterPage extends BasePage {
   }
 
   verifyResultGridHas(value) {
-    this.resultGrid.should('contain', value);
+    this.resultGrid.each($row => {
+      cy.wrap($row).should('contain.text', value);
+    });
   }
 
   verifyResultTagDetailHas(value) {
